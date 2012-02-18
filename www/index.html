@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+            <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+                <meta name="apple-mobile-web-app-capable" content="yes">
+                    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.css" />
+                    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+                    <script src="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.js"></script>
+                    <script type="text/javascript" charset="utf-8" src="phonegap-1.4.1.js"></script>
+                    
+                    <script type="text/javascript">
+                        
+                        function onDeviceReady()
+                        {}
+                        
+                        function onBodyLoad()
+                        {	
+                            init();
+                        }
+                        
+                        function init() {
+                            $("#submitButton").click("submit", function(e){
+								e.preventDefault();
+                                e.stopPropagation();
+                                getTweets();
+							});
+                        }
+                        
+                        function getTweets(){
+                            var sokeord = document.getElementById("search").value;
+                            var twitter_api_url = 'http://search.twitter.com/search.json';
+                            
+                            $.getJSON(
+                                      twitter_api_url + '?callback=?&q=:' + sokeord,
+                                      function(data) {
+                                      $.each(data.results, function(i, tweet) {
+                                             //console.log(tweet);
+                                             if(tweet.text !== undefined) {
+                                                var tweet_html = '<li>' + tweet.text + '<\/li>';
+                                               $('#tweets').append(tweet_html);
+                                             }
+                                            });
+                                      }
+                                );
+                            
+                            $.mobile.changePage($("#results"));
+                        }
+                        
+                        </script>
+                    </head>
+    <body onload="onBodyLoad()">
+        <div data-role="page" id="search">
+            
+            <div data-role="header">
+                <h1>Twitter klient</h1>
+            </div>
+            
+            <div data-role="content">	
+                <form>
+                    <label for="search" class="ui-hidden-accessible">Søkeord:</label>
+                    <input type="text" name="search" id="search" value="" placeholder="søkeord"/>
+                    <button type="submit" data-theme="b" id="submitButton" name="submitButton" value="submit-value">Søk</button>
+                </form>
+            </div>
+        </div>
+        
+        <div data-role="page" id="results">
+            <div data-role="header">
+                <h1>Resultater</h1>
+            </div>
+            
+            <div data-role="content">	
+                <ul id="tweets" data-role="listview" data-theme="g"></ul>
+            </div>
+        </div>
+    </body>
+</html>
