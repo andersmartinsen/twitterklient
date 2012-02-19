@@ -32,7 +32,7 @@
                             var twitter_api_url = 'http://search.twitter.com/search.json';
                             
                             $.getJSON(
-                                      twitter_api_url + '?callback=?&q=:' + sokeord,
+                                      twitter_api_url + '?callback=?&q=' + sokeord,
                                       function(data) {
                                       $.each(data.results, function(i, tweet) {
                                              //console.log(tweet);
@@ -50,10 +50,24 @@
                         </script>
                     </head>
     <body onload="onBodyLoad()">
-        <div data-role="page" id="search">
+		<div data-role="page" id="forside">
             
             <div data-role="header">
                 <h1>Twitter klient</h1>
+            </div>
+            
+            <div data-role="content">	
+				<ul data-role="listview" data-theme="b">
+					<li><a href="#sokeord">Søkeord</a></li>
+					<li><a href="#geolokasjon">Geolokasjon</a></li>
+				</ul>
+            </div>
+        </div>
+		
+		<div data-role="page" id="sokeord">
+			<div data-role="header">
+				<a href="#forside" data-icon="back">Back</a>
+                <h1>Tweets fra søkeord</h1>
             </div>
             
             <div data-role="content">	
@@ -64,14 +78,27 @@
                 </form>
             </div>
         </div>
-        
-        <div data-role="page" id="results">
+
+		<div data-role="page" id="geolokasjon">
+ 			<div data-role="header">
+				<a href="#forside" data-icon="back">Back</a>
+                <h1>Tweets fra geolokasjon</h1>
+            </div>
+            
+            <div data-role="content">	
+                <form>
+					<button type="submit" data-theme="b" id="submitButton" name="submitButton" value="submit-value">Søk</button>
+                </form>
+            </div>
+        </div>
+		
+	 	<div data-role="page" id="results">
             <div data-role="header">
                 <h1>Resultater</h1>
             </div>
             
             <div data-role="content">	
-                <ul id="tweets" data-role="listview" data-theme="g"></ul>
+                <ul id="tweets" data-role="listview" data-theme="b"></ul>
             </div>
         </div>
     </body>
