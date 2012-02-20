@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-            <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-                <meta name="apple-mobile-web-app-capable" content="yes">
-                    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.css" />
-                    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-                    <script src="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.js"></script>
-                    <script type="text/javascript" charset="utf-8" src="phonegap-1.4.1.js"></script>
+		<title>Twitter klient</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+        <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="phonegap-1.4.1.js"></script>
                     
                     <script type="text/javascript">
-                        
-                        function onDeviceReady()
-                        {}
-                        
-                        function onBodyLoad()
+                  		function onBodyLoad()
                         {	
+							//document.addEventListener("deviceready", onDeviceReady, false);
                             init();
                         }
+
+                        function onDeviceReady()
+                        {	
+							//navigator.geolocation.getCurrentPosition(getTweetsByGeolokasjon, onError);
+						}
                         
                         function init() {
                             $("#submitButton").click("submit", function(e){
@@ -25,9 +28,19 @@
                                 e.stopPropagation();
                                 getTweets();
 							});
+							
+							$("#submitButtonGeolokasjon").click("submit", function(e) {
+								e.preventDefault();
+                                e.stopPropagation();
+								navigator.geolocation.getCurrentPosition(getTweetsByGeolokasjon, onError);
+                            });
                         }
+
+						function onError() {
+					        alert('onError!');
+					    }	
                         
-                        function getTweets(){
+                        function getTweets() {
                             var sokeord = document.getElementById("search").value;
                             var twitter_api_url = 'http://search.twitter.com/search.json';
                             
@@ -46,12 +59,32 @@
                             
                             $.mobile.changePage($("#results"));
                         }
+
+						function getTweetsByGeolokasjon(posisjon){
+                            var twitter_api_url = 'http://api.twitter.com/1/geo/search.json';
+                            var latitude = position.coords.latitude;
+                            var longitude = position.coords.longitude;
+                            
+                            $.getJSON(
+                                      twitter_api_url + '?callback=?&lat=' + latitude + '&long=' + longitude,
+                                      function(data) {
+                                      $.each(data.results, function(i, tweet) {
+                                             //console.log(tweet);
+                                             if(tweet.text !== undefined) {
+                                                var tweet_html = '<li>' + tweet.text + '<\/li>';
+                                               $('#tweets').append(tweet_html);
+                                             }
+                                            });
+                                      }
+                                );
+                            
+                            $.mobile.changePage($("#results"));
+                        }
                         
                         </script>
                     </head>
     <body onload="onBodyLoad()">
 		<div data-role="page" id="forside">
-            
             <div data-role="header">
                 <h1>Twitter klient</h1>
             </div>
@@ -87,7 +120,7 @@
             
             <div data-role="content">	
                 <form>
-					<button type="submit" data-theme="b" id="submitButton" name="submitButton" value="submit-value">Søk</button>
+					<button type="submit" data-theme="b" id="submitButtonGeolokasjon" name="submitButton" value="submit-value">Søk</button>
                 </form>
             </div>
         </div>
