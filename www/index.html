@@ -13,17 +13,17 @@
                     <script type="text/javascript">
                   		function onBodyLoad()
                         {	
-							//document.addEventListener("deviceready", onDeviceReady, false);
-                            
                             init();
                         }
 
                         function onDeviceReady()
                         {	
-							//navigator.geolocation.getCurrentPosition(getTweetsByGeolokasjon, onError);
+                            //navigator.geolocation.getCurrentPosition(getTweetsByGeolokasjon, onError);
 						}
                         
                         function init() {
+                            document.addEventListener("deviceready", onDeviceReady, false);
+                            
                             $("#submitButton").click("submit", function(e){
 								e.preventDefault();
                                 e.stopPropagation();
@@ -32,14 +32,15 @@
 							
 							$("#submitButtonGeolokasjon").click("submit", function(e) {
 								e.preventDefault();
-                                e.stopPropagation();
-								navigator.geolocation.getCurrentPosition(getTweetsByGeolokasjon, onError);
+                                e.stopPropagation
+								 navigator.geolocation.getCurrentPosition(hentTweetsVedGeolokasjon, onError);
                             });
                         }
-
-						function onError() {
-					        alert('onError!');
-					    }	
+                       
+                        function onError(error) {
+                            alert('code: '    + error.code    + '\n' +
+                                  'message: ' + error.message + '\n');
+                        }
                         
                         function getTweets() {
                             var sokeord = document.getElementById("search").value;
@@ -49,8 +50,7 @@
                                       twitter_api_url + '?callback=?&q=' + sokeord,
                                       function(data) {
                                       $.each(data.results, function(i, tweet) {
-                                             //console.log(tweet);
-                                             if(tweet.text !== undefined) {
+                                            if(tweet.text !== undefined) {
                                                 var tweet_html = '<li>' + tweet.text + '<\/li>';
                                                $('#tweets').append(tweet_html);
                                              }
@@ -61,21 +61,21 @@
                             $.mobile.changePage($("#results"));
                         }
 
-						function getTweetsByGeolokasjon(posisjon){
-                            var twitter_api_url = 'http://api.twitter.com/1/geo/search.json';
+						function hentTweetsVedGeolokasjon(position){
+                            var twitter_api_url = 'http://search.twitter.com/search.json?geocode=';
                             var latitude = position.coords.latitude;
                             var longitude = position.coords.longitude;
+                            twitter_api_url += latitude + ',' + longitude + ',10km&&rpp=5&show_user=true';
                             
                             $.getJSON(
-                                      twitter_api_url + '?callback=?&lat=' + latitude + '&long=' + longitude,
+                                      twitter_api_url,
                                       function(data) {
                                       $.each(data.results, function(i, tweet) {
-                                             //console.log(tweet);
                                              if(tweet.text !== undefined) {
                                                 var tweet_html = '<li>' + tweet.text + '<\/li>';
-                                               $('#tweets').append(tweet_html);
-                                             }
-                                            });
+                                                $('#tweets').append(tweet_html);
+                                                }
+                                             });
                                       }
                                 );
                             
@@ -123,6 +123,7 @@
 					<button type="submit" data-theme="b" id="submitButtonGeolokasjon" name="submitButton" value="submit-value">Søk</button>
                 </form>
             </div>
+                            <div id = "geolocation"></div>
         </div>
 		
 	 	<div data-role="page" id="results" data-add-back-btn="true">
@@ -130,7 +131,7 @@
                 <h1>Resultater</h1>
             </div>
             
-            <div data-role="content">	
+            <div data-role="content">
                 <ul id="tweets" data-role="listview" data-theme="b"></ul>
             </div>
         </div>
