@@ -35,6 +35,7 @@
 		D08B343B14EFE903008D28CE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D08B343A14EFE903008D28CE /* AppDelegate.m */; };
 		D08B343E14EFE903008D28CE /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D08B343D14EFE903008D28CE /* MainViewController.m */; };
 		D08B344014EFE903008D28CE /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D08B343F14EFE903008D28CE /* MainViewController.xib */; };
+		D08B344914EFECFC008D28CE /* www in Resources */ = {isa = PBXBuildFile; fileRef = D08B344814EFECFC008D28CE /* www */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,10 +53,10 @@
 		D08B340E14EFE903008D28CE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D08B341014EFE903008D28CE /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		D08B341214EFE903008D28CE /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		D08B341614EFE903008D28CE /* twitterklient-Info.plist */ = {isa = PBXFileReference; path = "twitterklient-Info.plist"; sourceTree = "<group>"; };
+		D08B341614EFE903008D28CE /* twitterklient-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "twitterklient-Info.plist"; sourceTree = "<group>"; };
 		D08B341814EFE903008D28CE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D08B341A14EFE903008D28CE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D08B341C14EFE903008D28CE /* twitterklient-Prefix.pch */ = {isa = PBXFileReference; path = "twitterklient-Prefix.pch"; sourceTree = "<group>"; };
+		D08B341C14EFE903008D28CE /* twitterklient-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "twitterklient-Prefix.pch"; sourceTree = "<group>"; };
 		D08B341D14EFE903008D28CE /* PhoneGap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhoneGap.framework; path = /Users/Shared/PhoneGap/Frameworks/PhoneGap.framework; sourceTree = "<absolute>"; };
 		D08B342214EFE903008D28CE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D08B342614EFE903008D28CE /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Resources/es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -66,12 +67,13 @@
 		D08B343214EFE903008D28CE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Resources/splash/Default@2x.png"; sourceTree = "<group>"; };
 		D08B343414EFE903008D28CE /* Capture.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Capture.bundle; path = Resources/Capture.bundle; sourceTree = "<group>"; };
 		D08B343614EFE903008D28CE /* PhoneGap.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PhoneGap.plist; sourceTree = "<group>"; };
-		D08B343914EFE903008D28CE /* AppDelegate.h */ = {isa = PBXFileReference; name = AppDelegate.h; path = Classes/AppDelegate.h; sourceTree = "<group>"; };
+		D08B343914EFE903008D28CE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Classes/AppDelegate.h; sourceTree = "<group>"; };
 		D08B343A14EFE903008D28CE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Classes/AppDelegate.m; sourceTree = "<group>"; };
-		D08B343C14EFE903008D28CE /* MainViewController.h */ = {isa = PBXFileReference; name = MainViewController.h; path = Classes/MainViewController.h; sourceTree = "<group>"; };
+		D08B343C14EFE903008D28CE /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = Classes/MainViewController.h; sourceTree = "<group>"; };
 		D08B343D14EFE903008D28CE /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = Classes/MainViewController.m; sourceTree = "<group>"; };
 		D08B343F14EFE903008D28CE /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainViewController.xib; path = Classes/MainViewController.xib; sourceTree = "<group>"; };
-		D08B344214EFE903008D28CE /* README */ = {isa = PBXFileReference; name = README; path = Plugins/README; sourceTree = "<group>"; };
+		D08B344214EFE903008D28CE /* README */ = {isa = PBXFileReference; lastKnownFileType = text; name = README; path = Plugins/README; sourceTree = "<group>"; };
+		D08B344814EFECFC008D28CE /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 		D08B33E814EFE903008D28CE = {
 			isa = PBXGroup;
 			children = (
+				D08B344814EFECFC008D28CE /* www */,
 				D08B341414EFE903008D28CE /* twitterklient */,
 				D08B33F914EFE903008D28CE /* Frameworks */,
 				D08B33F714EFE903008D28CE /* Products */,
@@ -299,6 +302,7 @@
 				D08B343514EFE903008D28CE /* Capture.bundle in Resources */,
 				D08B343714EFE903008D28CE /* PhoneGap.plist in Resources */,
 				D08B344014EFE903008D28CE /* MainViewController.xib in Resources */,
+				D08B344914EFECFC008D28CE /* www in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +427,7 @@
 				GCC_PREFIX_HEADER = "twitterklient/twitterklient-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "PHONEGAP_FRAMEWORK=YES";
 				INFOPLIST_FILE = "twitterklient/twitterklient-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					UIKit,
@@ -450,6 +455,7 @@
 				GCC_PREFIX_HEADER = "twitterklient/twitterklient-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "PHONEGAP_FRAMEWORK=YES";
 				INFOPLIST_FILE = "twitterklient/twitterklient-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					UIKit,
@@ -486,6 +492,7 @@
 				D08B344714EFE903008D28CE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
