@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'twitterklient' target in the 'twitterklient' project
-//
-
-#ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-#endif
