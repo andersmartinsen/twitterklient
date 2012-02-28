@@ -1,139 +1,108 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
-	<head>
-		<title>Twitter klient</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-        <meta name="apple-mobile-web-app-capable" content="yes"/>
-        <link rel="stylesheet" href="js/jquery.mobile-1.0.1.css" />
-        <script src="js/jquery-1.6.4.js"></script>
-        <script src="js/jquery.mobile-1.0.1.js"></script>
-        <script type="text/javascript" charset="utf-8" src="phonegap-1.4.1.js"></script>
-                    
-                    <script type="text/javascript">
-                  		function onBodyLoad()
-                        {	
-                            init();
-                        }
+  <head>
+    <title>Twitter klient</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link rel="stylesheet" href="javascripts/vendor/jquery.mobile-1.0.1.css" />
+    <script src="javascripts/vendor/jquery-1.7.1.js"></script>
+    <script src="phonegap-1.4.1.js"></script>
+    <script>
+      $(document)
+        .on("mobileinit", function(){
+          // Make your jQuery Mobile framework configuration changes here!
+          $.mobile.allowCrossDomainPages = true;
+          $.support.cors = true;
+        });
+    </script>
+    
+    <script src="javascripts/vendor/jquery.mobile-1.0.1.js"></script>
+  </head>
+  <body>
+    <div data-role="page" id="forside">
+      <div data-role="header">
+        <h1>Twitter klient</h1>
+      </div>
 
-                        function onDeviceReady()
-                        {	
-                            //navigator.geolocation.getCurrentPosition(getTweetsByGeolokasjon, onError);
-						}
-                        
-                        function init() {
-                            document.addEventListener("deviceready", onDeviceReady, false);
-                            
-                            $("#submitButton").click("submit", function(e){
-								e.preventDefault();
-                                e.stopPropagation();
-                                getTweets();
-							});
-							
-							$("#submitButtonGeolokasjon").click("submit", function(e) {
-								e.preventDefault();
-                                e.stopPropagation
-								 navigator.geolocation.getCurrentPosition(hentTweetsVedGeolokasjon, onError);
-                            });
-                        }
-                       
-                        function onError(error) {
-                            alert('code: '    + error.code    + '\n' +
-                                  'message: ' + error.message + '\n');
-                        }
-                        
-                        function getTweets() {
-                            var sokeord = document.getElementById("search").value;
-                            var twitter_api_url = 'http://search.twitter.com/search.json';
-                            
-                            $.getJSON(
-                                      twitter_api_url + '?callback=?&q=' + sokeord,
-                                      function(data) {
-                                      $.each(data.results, function(i, tweet) {
-                                            if(tweet.text !== undefined) {
-                                                var tweet_html = '<li>' + tweet.text + '<\/li>';
-                                               $('#tweets').append(tweet_html);
-                                             }
-                                            });
-                                      }
-                                );
-                            
-                            $.mobile.changePage($("#results"));
-                        }
+      <div data-role="content">
+        <ul data-role="listview" data-theme="b">
+          <li>
+            <a href="#sokeord">Søkeord</a>
+          </li>
+          <li>
+            <a href="#geolokasjon">Geolokasjon</a>
+          </li>
+          <li>
+            <a href="#audio">Lyd</a>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-						function hentTweetsVedGeolokasjon(position){
-                            var twitter_api_url = 'http://search.twitter.com/search.json?geocode=';
-                            var latitude = position.coords.latitude;
-                            var longitude = position.coords.longitude;
-                            twitter_api_url += latitude + ',' + longitude + ',10km&&rpp=5&show_user=true';
-                            
-                            $.getJSON(
-                                      twitter_api_url,
-                                      function(data) {
-                                      $.each(data.results, function(i, tweet) {
-                                             if(tweet.text !== undefined) {
-                                                var tweet_html = '<li>' + tweet.text + '<\/li>';
-                                                $('#tweets').append(tweet_html);
-                                                }
-                                             });
-                                      }
-                                );
-                            
-                            $.mobile.changePage($("#results"));
-                        }
-                        
-                        </script>
-                    </head>
-    <body onload="onBodyLoad()">
-		<div data-role="page" id="forside">
-            <div data-role="header">
-                <h1>Twitter klient</h1>
-            </div>
-            
-            <div data-role="content">	
-				<ul data-role="listview" data-theme="b">
-					<li><a href="#sokeord">Søkeord</a></li>
-					<li><a href="#geolokasjon">Geolokasjon</a></li>
-				</ul>
-            </div>
-        </div>
-		
-		<div data-role="page" id="sokeord" data-add-back-btn="true">
-			<div data-role="header">
+    <div data-role="page" id="sokeord" data-add-back-btn="true">
+      <div data-role="header">
 
-                <h1>Tweets fra søkeord</h1>
-            </div>
-            
-            <div data-role="content">	
-                <form>
-                    <label for="search" class="ui-hidden-accessible">Søkeord:</label>
-                    <input type="text" name="search" id="search" value="" placeholder="søkeord"/>
-                    <button type="submit" data-theme="b" id="submitButton" name="submitButton" value="submit-value">Søk</button>
-                </form>
-            </div>
-        </div>
+        <h1>Tweets fra søkeord</h1>
+      </div>
 
-		<div data-role="page" id="geolokasjon" data-add-back-btn="true">
- 			<div data-role="header">
-                <h1>Tweets fra geolokasjon</h1>
-            </div>
-            
-            <div data-role="content">	
-                <form>
-					<button type="submit" data-theme="b" id="submitButtonGeolokasjon" name="submitButton" value="submit-value">Søk</button>
-                </form>
-            </div>
-                            <div id = "geolocation"></div>
-        </div>
-		
-	 	<div data-role="page" id="results" data-add-back-btn="true">
-            <div data-role="header">
-                <h1>Resultater</h1>
-            </div>
-            
-            <div data-role="content">
-                <ul id="tweets" data-role="listview" data-theme="b"></ul>
-            </div>
-        </div>
-    </body>
+      <div data-role="content">
+        <form>
+          <label for="search" class="ui-hidden-accessible">Søkeord:</label>
+          <input type="text" name="search" id="search" value="" placeholder="søkeord"/>
+          <button type="submit" data-theme="b" id="searchButton" name="submitButton" value="submit-value">Søk</button>
+        </form>
+      </div>
+    </div>
+
+    <div data-role="page" id="geolokasjon" data-add-back-btn="true">
+      <div data-role="header">
+        <h1>Tweets fra geolokasjon</h1>
+      </div>
+
+      <div data-role="content">
+        <form>
+          <button type="submit" data-theme="b" id="geoSearchButton" name="submitButton" value="submit-value">Søk</button>
+        </form>
+      </div>
+      <div id = "geolocation"></div>
+    </div>
+
+    <div data-role="page" id="results">
+      <div data-role="header">
+        <a href="#forside" data-role="button" data-icon="home">Forsiden</a>
+        <h1>Resultater</h1>
+      </div>
+
+      <div data-role="content">
+        <ul id="tweets" data-role="listview" data-inset="true"></ul>
+      </div>
+    </div>
+
+    <div data-role="page" id="audio">
+      <div data-role="header">
+        <a href="#forside" data-role="button" data-icon="home">Forsiden</a>
+        <h1>Lyd</h1>
+      </div>
+      <div data-role="content">
+        <a id="record" data-role="button">Start opptak</a>
+        <a id="play" data-role="button">Spill av</a>
+      <div>
+    </div>
+
+    <script type="text/javascript" charset="utf-8" src="javascripts/app.js"></script>
+    <script>
+      $(function(){
+        var app = new App({
+          searchField: "#search",
+          tweets: "#tweets",
+          searchButton: "#searchButton",
+          geoSearchButton: "#geoSearchButton",
+          resultsPage: "#results",
+          recordButton: "#record",
+          playButton: "#play"
+        });
+      });
+    </script>
+  </body>
 </html>
