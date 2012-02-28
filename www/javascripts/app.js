@@ -1,13 +1,18 @@
 ﻿(function(){
-  function Twitter(params){
+  function App(params){
     this.searchField = $(params.searchField);
     this.tweets = $(params.tweets);
     this.searchButton = $(params.searchButton);
     this.geoSearchButton = $(params.geoSearchButton);
     this.resultsPage = $(params.resultsPage);
+    this.playButton = $(params.playButton);
+    this.recordButton = $(params.recordButton);
+    this.isRecording = false;
+    this.media = null;
+    this.isPlaying = false;
     this.setupBindings();
   }
-  $.extend(Twitter.prototype, {
+  $.extend(App.prototype, {
     setupBindings: function(){
       console.log("Setting up bindings");
       var self = this;
@@ -22,6 +27,55 @@
         e.preventDefault();
         self.searchByLocation();
       });
+
+      self.recordButton.on("click", function(e){
+        e.preventDefault();
+        if (self.isRecording){
+          self.media.stopRecord();
+          self.isRecording = false;
+          $(this).find(".ui-btn-text").text("Start opptak");
+        } else {
+          self.recordAudio();
+          $(this).find(".ui-btn-text").text("Stopp opptak");
+        }
+      });
+
+      self.playButton.on("click", function(e){
+        e.preventDefault();
+        if (self.isPlaying){
+          self.stopAudio();
+          $(this).find(".ui-btn-text").text("Spill av")
+        } else {
+          self.playAudio();
+          $(this).find(".ui-btn-text").text("Stopp avspilling");
+        }
+      });
+    },
+    recordAudio: function() {
+      var src = "myrecording.mp3";
+      this.media = new Media(src,
+        // success callback
+        function() {
+            console.log("recordAudio():Audio Success");
+        },
+
+        // error callback
+        function(err) {
+            console.log("recordAudio():Audio Error: "+ err.code);
+        });
+
+      // Record audio
+      this.media.startRecord();
+      this.isRecording = true;
+    },
+    playAudio: function() {
+      // Play audio
+      this.media.play();
+      this.isPlaying = true;
+    },
+    stopAudio: function(){
+      this.media.stop();
+      this.isPlaying = false;
     },
     renderTweets: function(tweets){
       var self = this;
@@ -40,6 +94,7 @@
         var latitude = location.coords.latitude;
         var longitude = location.coords.longitude;
         twitter_api_url += latitude + ',' + longitude + ',10km&rpp=5&show_user=true';
+
         $.getJSON(twitter_api_url, function(data) {
           if (data == undefined || data.results == undefined || data.results.length == 0){
             navigator.notification.alert("No results for your location");
@@ -71,5 +126,5 @@
       });
     }
   });
-  window.Twitter = Twitter;
+  window.App = App;
 })();

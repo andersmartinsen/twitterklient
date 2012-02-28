@@ -6,19 +6,20 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <link rel="stylesheet" href="javascripts/vendor/jquery.mobile-1.0.1.css" />
-    <script src="javascripts/vendor/jquery-1.6.4.js"></script>
+    <script src="javascripts/vendor/jquery-1.7.1.js"></script>
+    <script src="phonegap-1.4.1.js"></script>
     <script>
-      $(document).bind("mobileinit", function() {
+      $(document)
+        .on("mobileinit", function(){
           // Make your jQuery Mobile framework configuration changes here!
           $.mobile.allowCrossDomainPages = true;
           $.support.cors = true;
-      });
+        });
     </script>
+    
     <script src="javascripts/vendor/jquery.mobile-1.0.1.js"></script>
-    <script type="text/javascript" charset="utf-8" src="phonegap-1.4.1.js"></script>
-    <script type="text/javascript" charset="utf-8" src="javascripts/app.js"></script>
   </head>
-  <body onLoad="onBodyLoad()">
+  <body>
     <div data-role="page" id="forside">
       <div data-role="header">
         <h1>Twitter klient</h1>
@@ -31,6 +32,9 @@
           </li>
           <li>
             <a href="#geolokasjon">Geolokasjon</a>
+          </li>
+          <li>
+            <a href="#audio">Lyd</a>
           </li>
         </ul>
       </div>
@@ -46,7 +50,7 @@
         <form>
           <label for="search" class="ui-hidden-accessible">Søkeord:</label>
           <input type="text" name="search" id="search" value="" placeholder="søkeord"/>
-          <button type="submit" data-theme="b" id="submitButton" name="submitButton" value="submit-value">Søk</button>
+          <button type="submit" data-theme="b" id="searchButton" name="submitButton" value="submit-value">Søk</button>
         </form>
       </div>
     </div>
@@ -58,14 +62,15 @@
 
       <div data-role="content">
         <form>
-          <button type="submit" data-theme="b" id="submitButtonGeolokasjon" name="submitButton" value="submit-value">Søk</button>
+          <button type="submit" data-theme="b" id="geoSearchButton" name="submitButton" value="submit-value">Søk</button>
         </form>
       </div>
       <div id = "geolocation"></div>
     </div>
 
-    <div data-role="page" id="results" data-add-back-btn="true">
+    <div data-role="page" id="results">
       <div data-role="header">
+        <a href="#forside" data-role="button" data-icon="home">Forsiden</a>
         <h1>Resultater</h1>
       </div>
 
@@ -73,5 +78,30 @@
         <ul id="tweets" data-role="listview" data-inset="true"></ul>
       </div>
     </div>
+
+    <div data-role="page" id="audio">
+      <div data-role="header">
+        <h1>Lyd</h1>
+      </div>
+      <div data-role="content">
+        <a id="record" data-role="button">Start opptak</a>
+        <a id="play" data-role="button">Spill av</a>
+      <div>
+    </div>
+
+    <script type="text/javascript" charset="utf-8" src="javascripts/app.js"></script>
+    <script>
+      $(function(){
+        var app = new App({
+          searchField: "#search",
+          tweets: "#tweets",
+          searchButton: "#searchButton",
+          geoSearchButton: "#geoSearchButton",
+          resultsPage: "#results",
+          recordButton: "#record",
+          playButton: "#play"
+        });
+      });
+    </script>
   </body>
 </html>
