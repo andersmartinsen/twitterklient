@@ -6,6 +6,8 @@
     this.geoSearchButton = $(params.geoSearchButton);
     this.twitterUserSearchButton = $(params.twitterUserSearchButton);
     this.searchUsernameField = $(params.searchUsernameField);
+	this.usernameResultPage = $(params.usernameResultPage);
+	this.user = $(params.user);
     this.resultsPage = $(params.resultsPage);
     this.playButton = $(params.playButton);
     this.recordButton = $(params.recordButton);
@@ -94,6 +96,40 @@
       });
       self.tweets.listview("refresh");
     },
+	renderUser: function(user){
+		var self = this;
+		var user_html = '<img src="' + user.profile_image_url_https + '"/>'
+		user_html += '<p>Navn: ' + user.name + '</p>';
+		user_html += '<p>Følgere: ' + user.followers_count + '</p>'
+		user_html += '<p>Følger: ' + user.friends_count + '</p>'
+		user_html += '<a href="" onClick="lagreAnsattTilKontaktLista(); return false;" class="ui-btn-right" data-role="button" data-icon="check">Save</a>';
+		self.user.append(user_html);
+    },
+	lagreAnsattTilKontaktLista: function() {
+		alert('her');
+        var contact = navigator.contacts.create();
+        contact.displayName = user.name;
+
+        var bilder = [1];
+        bilder[0] = new ContactField('Jobb', user.profile_image_url_https, true);
+        contact.photos = bilder;
+
+        var name = new ContactName();
+        name.formatted = user.name;
+        name.givenName = user.name;
+        name.familyName = user.name;
+        contact.name = name;
+
+        contact.save(onSuccess, onError);
+
+        function onSuccess() {
+            navigator.notification.alert('Kontakten ble lagret i adresseboka', null, 'Suksess');
+        }
+
+        function onError(contactError) {
+            navigator.notification.alert('Feilkode: ' + contactError.code, null, 'En feil inntraff');
+        }
+    },
     searchByLocation: function(){
       var self = this;
       navigator.geolocation.getCurrentPosition(function(location){
@@ -121,8 +157,8 @@
 	        dataType: "JSON",
 	        type: "GET",
 	        success: function(data) {
-	          $.mobile.changePage(self.resultsPage);
-	          self.renderTweets(data.results); 
+	          $.mobile.changePage(self.usernameResultPage);
+	          self.renderUser(data); 
 	        },
 	        error: function(xhr, textStatus, errorThrown){
 	          console.log(xhr);
