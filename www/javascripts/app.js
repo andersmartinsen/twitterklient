@@ -4,6 +4,8 @@
     this.tweets = $(params.tweets);
     this.searchButton = $(params.searchButton);
     this.geoSearchButton = $(params.geoSearchButton);
+    this.twitterUserSearchButton = $(params.twitterUserSearchButton);
+    this.searchUsernameField = $(params.searchUsernameField);
     this.resultsPage = $(params.resultsPage);
     this.playButton = $(params.playButton);
     this.recordButton = $(params.recordButton);
@@ -26,6 +28,11 @@
       self.geoSearchButton.on("click", function(e) {
         e.preventDefault();
         self.searchByLocation();
+      });
+
+	  self.twitterUserSearchButton.on("click", function(e) {
+        e.preventDefault();
+        self.searchByTwitterName(self.searchUsernameField.val());
       });
 
       self.recordButton.on("click", function(e){
@@ -105,6 +112,26 @@
         });
       } , function(error){console.log("Something went wrong with location")});
     },
+	searchByTwitterName: function(username) {
+		console.log("Searching for " + username);
+	      var searchUrl = 'http://api.twitter.com/1/users/show.json?callback=?&screen_name=' + username;
+	      var self = this;
+	      $.ajax({
+	        url: searchUrl,
+	        dataType: "JSON",
+	        type: "GET",
+	        success: function(data) {
+	          $.mobile.changePage(self.resultsPage);
+	          self.renderTweets(data.results); 
+	        },
+	        error: function(xhr, textStatus, errorThrown){
+	          console.log(xhr);
+	          console.log(textStatus);
+	          console.log(errorThrown);
+	          alert("Noe gikk galt når vi søkte etter bruker på twitter :(");
+	        }
+	      });
+	},
     search: function(keyword){
       console.log("Searching for " + keyword);
       var searchUrl = 'http://search.twitter.com/search.json?callback=?&q=' + keyword;

@@ -33,6 +33,9 @@
           <li>
             <a href="#geolokasjon">Geolokasjon</a>
           </li>
+		  <li>
+			<a href="#kontaktliste">Kontaktliste</a>
+		  </li>
           <li>
             <a href="#audio">Lyd</a>
           </li>
@@ -67,6 +70,20 @@
       </div>
       <div id = "geolocation"></div>
     </div>
+	
+	<div data-role="page" id="kontaktliste" data-add-back-btn="true">
+      <div data-role="header">
+        <h1>Søke opp twitterbruk og lagre til kontaktliste</h1>
+      </div>
+
+	<div data-role="content">
+        <form>
+          <label for="search" class="ui-hidden-accessible">Brukernavn:</label>
+          <input type="text" name="search" id="searchUsernameField" value="" placeholder="brukernavn"/>
+          <button type="submit" data-theme="b" id="twitterUserSearchButton" name="submitButton" value="submit-value">Søk</button>
+        </form>
+      </div>
+    </div>
 
     <div data-role="page" id="results">
       <div data-role="header">
@@ -98,6 +115,8 @@
           tweets: "#tweets",
           searchButton: "#searchButton",
           geoSearchButton: "#geoSearchButton",
+		  twitterUserSearchButton: "#twitterUserSearchButton",
+		  searchUsernameField: "#searchUsernameField",
           resultsPage: "#results",
           recordButton: "#record",
           playButton: "#play"
