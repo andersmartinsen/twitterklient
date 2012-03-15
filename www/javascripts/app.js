@@ -5,8 +5,8 @@
     this.searchButton = $(params.searchButton);
     this.twitterUserSearchButton = $(params.twitterUserSearchButton);
     this.searchUsernameField = $(params.searchUsernameField);
-	this.usernameResultPage = $(params.usernameResultPage);
-	this.user = $(params.user);
+	  this.usernameResultPage = $(params.usernameResultPage);
+	  this.user = $(params.user);
     this.geoSearchButton = $(params.geoSearchButton);
     this.resultsPage = $(params.resultsPage);
     this.playButton = $(params.playButton);
@@ -66,33 +66,37 @@
 		user_html += '<p>Navn: ' + user.name + '</p>';
 		user_html += '<p>Følgere: ' + user.followers_count + '</p>'
 		user_html += '<p>Følger: ' + user.friends_count + '</p>'
-		user_html += '<a href="" onClick="lagreAnsattTilKontaktLista(); return false;" class="ui-btn-right" data-role="button" data-icon="check">Save</a>';
+		user_html += '<a href="" class="save" onClick="lagreAnsattTilKontaktLista(); return false;" class="ui-btn-right" data-role="button" data-icon="check">Save</a>';
 		self.user.append(user_html);
-    },
-	lagreAnsattTilKontaktLista: function() {
-		alert('her');
-        var contact = navigator.contacts.create();
-        contact.displayName = user.name;
+    self.user.find("a.save").on("click", function(){
+      self.lagreAnsattTilKontaktLista(user);
+    });
+  },
+	lagreAnsattTilKontaktLista: function(user) {
+    var contact = navigator.contacts.create();
+    contact.displayName = user.name;
 
-        var bilder = [1];
-        bilder[0] = new ContactField('Jobb', user.profile_image_url_https, true);
-        contact.photos = bilder;
+    var bilder = [1];
+    bilder[0] = new ContactField('url', user.profile_image_url_https, true);
+    contact.photos = bilder;
 
-        var name = new ContactName();
-        name.formatted = user.name;
-        name.givenName = user.name;
-        name.familyName = user.name;
-        contact.name = name;
+    var name = new ContactName();
+    var names = user.name.split(" ");
+    name.givenName = names[0];
+    if (names.length > 1){
+      name.familyName = names[1];
+    }
+    contact.name = name;
 
-        contact.save(onSuccess, onError);
+    contact.save(onSuccess, onError);
 
-        function onSuccess() {
-            navigator.notification.alert('Kontakten ble lagret i adresseboka', null, 'Suksess');
-        }
+    function onSuccess() {
+        navigator.notification.alert('Kontakten ble lagret i adresseboka', null, 'Suksess');
+    }
 
-        function onError(contactError) {
-            navigator.notification.alert('Feilkode: ' + contactError.code, null, 'En feil inntraff');
-        }
+    function onError(contactError) {
+        navigator.notification.alert('Feilkode: ' + contactError.code, null, 'En feil inntraff');
+    }
     },
     searchByLocation: function(){
       var self = this;
