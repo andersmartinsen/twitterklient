@@ -34,6 +34,12 @@
         self.searchByLocation();
       });
 
+	  self.twitterUserSearchButton.on("click", function(e) {
+	        e.preventDefault();
+	        self.searchByTwitterName(self.searchUsernameField.val());
+     });
+		
+
       self.recordButton.on("click", function(e){
         var captureError = function(error) {
           var msg = 'An error occurred during capture: ' + error.code;
