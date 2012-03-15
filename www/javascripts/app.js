@@ -10,6 +10,8 @@
     this.isRecording = false;
     this.media = null;
     this.isPlaying = false;
+    this.recordCount = 0;
+    this.currentRecordingFilename = null;
     this.setupBindings();
   }
   $.extend(App.prototype, {
@@ -29,53 +31,24 @@
       });
 
       self.recordButton.on("click", function(e){
-        e.preventDefault();
-        if (self.isRecording){
-          self.media.stopRecord();
-          self.isRecording = false;
-          $(this).find(".ui-btn-text").text("Start opptak");
-        } else {
-          self.recordAudio();
-          $(this).find(".ui-btn-text").text("Stopp opptak");
-        }
+        var captureError = function(error) {
+          var msg = 'An error occurred during capture: ' + error.code;
+          navigator.notification.alert(msg, null, 'Uh oh!');
+        };
+        navigator.device.capture.captureAudio(function(mediaFiles){
+          mediaFiles.forEach(function(mediaFile){
+            var path = mediaFile.fullPath;
+            var name = mediaFile.name;
+            $("#recording-list").append("<li><a href='#' data-path='" + path + "'>" + name + "</a></li>").listview("refresh");
+            $("#recording-list li a").on("click", function(e){
+              e.preventDefault();
+              console.log("Trying to play media with path = " + $(this).attr("data-path"));
+              var media = new Media($(this).attr("data-path"), function(){console.log("found recording");}, function(){console.log("fooooo");});
+              media.play();
+            });
+          });
+        }, captureError, {limit: 1});
       });
-
-      self.playButton.on("click", function(e){
-        e.preventDefault();
-        if (self.isPlaying){
-          self.stopAudio();
-          $(this).find(".ui-btn-text").text("Spill av")
-        } else {
-          self.playAudio();
-          $(this).find(".ui-btn-text").text("Stopp avspilling");
-        }
-      });
-    },
-    recordAudio: function() {
-      var src = "myrecording.mp3";
-      this.media = new Media(src,
-        // success callback
-        function() {
-            console.log("recordAudio():Audio Success");
-        },
-
-        // error callback
-        function(err) {
-            console.log("recordAudio():Audio Error: "+ err.code);
-        });
-
-      // Record audio
-      this.media.startRecord();
-      this.isRecording = true;
-    },
-    playAudio: function() {
-      // Play audio
-      this.media.play();
-      this.isPlaying = true;
-    },
-    stopAudio: function(){
-      this.media.stop();
-      this.isPlaying = false;
     },
     renderTweets: function(tweets){
       var self = this;
