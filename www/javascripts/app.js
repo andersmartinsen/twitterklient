@@ -9,14 +9,7 @@
 	  this.user = $(params.user);
     this.geoSearchButton = $(params.geoSearchButton);
     this.resultsPage = $(params.resultsPage);
-    this.playButton = $(params.playButton);
     this.recordButton = $(params.recordButton);
-    this.isRecording = false;
-    this.media = null;
-    this.isPlaying = false;
-    this.recordCount = 0;
-    this.currentRecordingFilename = null;
-    this.audioFiles = [];
     this.setupBindings();
   }
   $.extend(App.prototype, {
