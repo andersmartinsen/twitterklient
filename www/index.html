@@ -72,18 +72,18 @@
     </div>
 	
 	<div data-role="page" id="kontaktliste" data-add-back-btn="true">
-      <div data-role="header">
-        <h1>Søke opp twitterbruk og lagre til kontaktliste</h1>
-      </div>
-
-	<div data-role="content">
-        <form>
-          <label for="search" class="ui-hidden-accessible">Brukernavn:</label>
-          <input type="text" name="search" id="searchUsernameField" value="" placeholder="brukernavn"/>
-          <button type="submit" data-theme="b" id="twitterUserSearchButton" name="submitButton" value="submit-value">Søk</button>
-        </form>
-      </div>
+    <div data-role="header">
+      <h1>Søke opp twitterbruk og lagre til kontaktliste</h1>
     </div>
+
+	  <div data-role="content">
+      <form>
+        <label for="search" class="ui-hidden-accessible">Brukernavn:</label>
+        <input type="text" name="search" id="searchUsernameField" value="" placeholder="brukernavn"/>
+        <button type="submit" data-theme="b" id="twitterUserSearchButton" name="submitButton" value="submit-value">Søk</button>
+      </form>
+    </div>
+  </div>
 
     <div data-role="page" id="results">
       <div data-role="header">
@@ -96,14 +96,14 @@
       </div>
     </div>
 
-	<div data-role="page" id="usernameResultPage">
+	  <div data-role="page" id="usernameResultPage">
       <div data-role="header">
         <a href="#forside" data-role="button" data-icon="home">Forsiden</a>
         <h1>Resultat</h1>
       </div>
 
       <div data-role="content">
-		<div id="user"></div>
+  		  <div id="user"></div>
       </div>
     </div>
 
@@ -114,7 +114,6 @@
       </div>
       <div data-role="content">
         <a id="record" data-role="button">Start opptak</a>
-        <a id="play" data-role="button">Spill av</a>
       <div>
     </div>
 
@@ -126,11 +125,11 @@
           tweets: "#tweets",
           searchButton: "#searchButton",
           geoSearchButton: "#geoSearchButton",
-		  twitterUserSearchButton: "#twitterUserSearchButton",
-		  searchUsernameField: "#searchUsernameField",
+		      twitterUserSearchButton: "#twitterUserSearchButton",
+		      searchUsernameField: "#searchUsernameField",
           resultsPage: "#results",
-		  usernameResultPage: "#usernameResultPage",
-		  user: "#user",
+		      usernameResultPage: "#usernameResultPage",
+		      user: "#user",
           recordButton: "#record",
           playButton: "#play"
         });
