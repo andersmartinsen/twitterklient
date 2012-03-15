@@ -54,6 +54,16 @@
         }, captureError, {limit: 1});
       });
     },
+	renderTweets: function(tweets){
+	      var self = this;
+	      $.each(tweets, function(i, tweet) {
+	        if(tweet.text !== undefined) {
+	          var tweet_html = '<li><h1>Tweet</h1><p>' + tweet.text + '</p><\/li>';
+	          self.tweets.append(tweet_html);
+	        }
+	      });
+	      self.tweets.listview("refresh");
+	},
 	renderUser: function(user){
 		var self = this;
 		var user_html = '<img src="' + user.profile_image_url_https + '"/>'
