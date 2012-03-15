@@ -12,6 +12,7 @@
     this.isPlaying = false;
     this.recordCount = 0;
     this.currentRecordingFilename = null;
+    this.audioFiles = [];
     this.setupBindings();
   }
   $.extend(App.prototype, {
@@ -31,23 +32,12 @@
       });
 
       self.recordButton.on("click", function(e){
-        var captureError = function(error) {
-          var msg = 'An error occurred during capture: ' + error.code;
-          navigator.notification.alert(msg, null, 'Uh oh!');
-        };
         navigator.device.capture.captureAudio(function(mediaFiles){
           mediaFiles.forEach(function(mediaFile){
             var path = mediaFile.fullPath;
-            var name = mediaFile.name;
-            $("#recording-list").append("<li><a href='#' data-path='" + path + "'>" + name + "</a></li>").listview("refresh");
-            $("#recording-list li a").on("click", function(e){
-              e.preventDefault();
-              console.log("Trying to play media with path = " + $(this).attr("data-path"));
-              var media = new Media($(this).attr("data-path"), function(){console.log("found recording");}, function(){console.log("fooooo");});
-              media.play();
-            });
+            new Media(path).play();
           });
-        }, captureError, {limit: 1});
+        }, function(){}, {limit: 1});
       });
     },
     renderTweets: function(tweets){
