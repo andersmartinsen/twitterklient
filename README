@@ -1,0 +1,6 @@
+Ting å huske på i forhold til iOS:
+
+PhoneGap.plist og legge til disse som ExternalHosts:
+
+*.twimg.com
+*.twitter.com
