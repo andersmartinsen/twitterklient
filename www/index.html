@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Twitter klient</title>
@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <link rel="stylesheet" href="javascripts/vendor/jquery.mobile-1.0.1.css" />
     <script src="javascripts/vendor/jquery-1.7.1.js"></script>
-    <script src="phonegap-1.4.1.js"></script>
+    <script src="cordova-1.5.0.js"></script>
     <script>
       $(document)
         .on("mobileinit", function(){
@@ -39,9 +39,26 @@
           <li>
             <a href="#audio">Lyd</a>
           </li>
+		  <li>
+            <a href="#geonettverk">Geolokasjon med nettverk</a>
+          </li>
         </ul>
       </div>
     </div>
+
+	<div data-role="page" id="geonettverk" data-add-back-btn="true">
+      <div data-role="header">
+        <h1>Tweets fra geolokasjon med nettverk</h1>
+      </div>
+
+      <div data-role="content">
+        <form>
+          <button type="submit" data-theme="b" id="geoNetworkSearchButton" name="submitButton" value="submit-value">Søk</button>
+        </form>
+      </div>
+      <div id = "g"></div>
+    </div>
+
 
     <div data-role="page" id="sokeord" data-add-back-btn="true">
       <div data-role="header">
@@ -117,6 +134,20 @@
       <div>
     </div>
 
+	<div data-role="page" id="kontaktliste" data-add-back-btn="true">
+    <div data-role="header">
+      <h1>Søke opp twitterbruk og lagre til kontaktliste</h1>
+    </div>
+
+	  <div data-role="content">
+      <form>
+        <label for="search" class="ui-hidden-accessible">Brukernavn:</label>
+        <input type="text" name="search" id="searchUsernameField" value="" placeholder="brukernavn"/>
+        <button type="submit" data-theme="b" id="twitterUserSearchButton" name="submitButton" value="submit-value">Søk</button>
+      </form>
+    </div>
+  </div>
+
     <script type="text/javascript" charset="utf-8" src="javascripts/app.js"></script>
     <script>
       $(function(){
@@ -125,13 +156,14 @@
           tweets: "#tweets",
           searchButton: "#searchButton",
           geoSearchButton: "#geoSearchButton",
-		      twitterUserSearchButton: "#twitterUserSearchButton",
-		      searchUsernameField: "#searchUsernameField",
+	      twitterUserSearchButton: "#twitterUserSearchButton",
+	      searchUsernameField: "#searchUsernameField",
           resultsPage: "#results",
-		      usernameResultPage: "#usernameResultPage",
-		      user: "#user",
+	      usernameResultPage: "#usernameResultPage",
+	      user: "#user",
           recordButton: "#record",
-          playButton: "#play"
+          playButton: "#play",
+		  geoNetworkSearchButton: "#geoNetworkSearchButton"
         });
       });
     </script>
